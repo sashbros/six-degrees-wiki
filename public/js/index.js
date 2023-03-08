@@ -188,7 +188,7 @@ let searchByBfs = (start_node_title, end_node_title) => {
                 console.log(title + " FOUND!!!!!!!!!!")
                 tempPath.push(title)
                 end_node_found = true
-                document.getElementById("foundText").append(title + " FOUND. Here is the path -> " + tempPath)
+                document.getElementById("foundText").innerText = title + " FOUND. Here is the path -> " + tempPath
                 return false
             }
 
