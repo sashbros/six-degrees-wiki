@@ -1,3 +1,7 @@
+let nums = 500
+let visited = new Set()
+let running = 0
+
 document.getElementById("search-button").onclick = () => {
     let start = document.getElementById("startNode").value
     let end = document.getElementById("endNode").value
@@ -17,9 +21,13 @@ document.getElementById("search-button").onclick = () => {
     // let start_connection_titles = await fetchPageConnectionTitles(start_page_title)
     // console.log(start_connection_titles)
 
+    nums = 5000
+    visited = new Set()
+    running = 0
+
     searchByBfs(start_page_title, end_page_title)
     // searchByBfs(end_page_title, end_page_title)
-    
+    if (running==0) console.log("workers done")
 }
 
 let getTitleForSearchText = (search_text) => {
@@ -105,9 +113,10 @@ let getSourceFromTitle = (page_title) => {
     //         method: "GET",
     // })
     // let data = await response.json()
-
+    let data;
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://en.wikipedia.org/w/rest.php/v1/page/" + page_title, false);
+    // xhr.open("GET", "https://en.wikipedia.org/w/rest.php/v1/page/" + page_title, false);
+    xhr.open("GET", "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&origin=*&titles=" + page_title, false);
     try {
         xhr.send();
         if (xhr.status != 200) {
@@ -120,8 +129,13 @@ let getSourceFromTitle = (page_title) => {
     }
     
     if (data.redirect_target == undefined) {
-        console.log(data.title)
-        source = data.source
+        // console.log(data.title)
+        // source = data.source
+        // console.log(data.title)
+        let page = data.query.pages
+        let pageId = Object.keys(page)[0]
+        console.log(page[pageId].title)
+        source = page[pageId].revisions[0]['*']
     } else {
         source = getSourceFromTitle(extractTitleFromURL(data.redirect_target))
     }
@@ -133,7 +147,7 @@ let extractConnectionTitlesfromSource = (node_source) => {
     // console.log(node_source)
     // const regex = /\[\[(.*?)\]\]/g;
     // const regex = /\[\[(.*?)\|.*?\]\]|\[\[(.*?)\]\]/g
-    const regex = /\[\[(?!File:)([^[\]]+)\]\]/g
+    const regex = /\[\[(?!Category:)([^[\]]+)\]\]/g
 
     // finding matches in the string for the given regular expression
     let results = node_source.matchAll(regex);
@@ -152,7 +166,7 @@ let extractConnectionTitlesfromSource = (node_source) => {
 
     // TODO: multithreading??
     // slicing for exploring more than 2 path nodes 
-    return [...connection_titles].slice(0, 5); 
+    return [...connection_titles]//.slice(0, 5); 
 }
 
 let extractTitleFromURL = url => {
@@ -161,9 +175,6 @@ let extractTitleFromURL = url => {
     return title
 }
 
-let nums = 25
-let visited = new Set()
-
 let searchByBfs = (start_node_title, end_node_title) => {
     let end_node_found = false
     let q = new Queue() // enqueue(), dequeue(), peek(), length, isEmpty  
@@ -171,36 +182,64 @@ let searchByBfs = (start_node_title, end_node_title) => {
     visited.add(start_node_title)
 
     while (nums>0 && !q.isEmpty && !end_node_found) {
+        // console.log(nums)
         // getting path
         let path = q.dequeue()
-        // console.log(typeof(Array.from(path)))
+
         // last title
         let newTitle = path[path.length - 1]
 
-        // console.log(await newTitle)
-        newTitleConnections = fetchPageConnectionTitles(newTitle)
-        // console.log(newTitleConnections)
-        newTitleConnections.forEach(title => {
-            if (visited.has(title)) return false;
-            visited.add(title)
-            tempPath = path.slice()
-            if (title == end_node_title) {
-                console.log(title + " FOUND!!!!!!!!!!")
-                tempPath.push(title)
-                end_node_found = true
-                document.getElementById("foundText").innerText = title + " FOUND. Here is the path -> " + tempPath
-                return false
-            }
+        if (q.length < 3) {
+            let newTitleConnections = fetchPageConnectionTitles(newTitle)
+            newTitleConnections.forEach(title => {
+                if (visited.has(title)) return false;
+                visited.add(title)
+                tempPath = path.slice()
+                if (title == end_node_title) {
+                    console.log(title + " FOUND!!!!!!!!!!")
+                    tempPath.push(title)
+                    end_node_found = true
+                    document.getElementById("foundText").innerText = title + " FOUND. Here is the path -> " + tempPath
+                    return false
+                }
 
-            tempPath.push(title)
-            // console.log(tempPath)
-            q.enqueue(tempPath)
-            // console.log(q)
-            return true
-        });
+                tempPath.push(title)
+                q.enqueue(tempPath)
+                
+                return true
+            });
+        } else {
+            running++;
+            // console.log("worker " + running)
+            const worker = new Worker("/js/worker.js")
+            worker.postMessage(newTitle)
+            worker.onmessage = newTitleConnections => {
+                running--;
+                newTitleConnections.data.forEach(title => {
+                    if (visited.has(title)) return false;
+                    visited.add(title)
+                    tempPath = path.slice()
+                    if (title == end_node_title) {
+                        console.log(title + " FOUND!!!!!!!!!!")
+                        tempPath.push(title)
+                        end_node_found = true
+                        document.getElementById("foundText").innerText = title + " FOUND. Here is the path -> " + tempPath
+                        return false
+                    }
+        
+                    tempPath.push(title)
+                    q.enqueue(tempPath)
+                    
+                    return true
+                });
+                if (running===0) console.log("all workers complete")
+            }
+        }
+        
+        
         nums--;
     }
-    nums = 25;
-    visited = new Set()
+    // nums = 25;
+    // visited = new Set()
     
 }
