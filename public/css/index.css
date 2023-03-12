@@ -1,8 +1,38 @@
 body {
-    /* background-color: aqua; */
+    background-color: rgb(109, 241, 202);
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
 }
 
 h1 {
-    /* font-family: 'Genos', sans-serif;
-    text-align: center; */
+    font-family: 'Genos', sans-serif;
+    text-align: center;
+    font-size: 50px;
+}
+
+.search-paths input[type=text] {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    border: none;
+    box-shadow: 0 0 15px 2px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.search-paths input[type=submit] {
+    width: 25%;
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color:#007e11;
+    color:#fff;
+    font-weight:600;
+    box-shadow: 0 0 15px 2px rgba(0,0,0,0.4);
+    border-radius: 7px;
+}
+
+#foundText {
+    margin-top: 15px;
+    
 }
