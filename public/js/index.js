@@ -31,7 +31,7 @@ let searchButtonClick = async (start, end) => {
     // let start_connection_titles = await fetchPageConnectionTitles(start_page_title)
     // console.log(start_connection_titles)
 
-    nums = 500
+    nums = 50
     visited = new Set()
     running = 0
     useWebWorkers = false
