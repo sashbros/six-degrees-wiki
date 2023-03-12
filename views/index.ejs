@@ -9,18 +9,21 @@
     <title>Six Degrees of WikiPedia</title>
 </head>
 <body>
-    <!-- <h1>Six Degrees of WikiPedia</h1>  -->
-    HOLA shortest path 
+    <h1>Six Degrees of WikiPedia</h1> 
+    <h2>Find the shortest path from</h2> 
     <div class="search-paths">
         <form action="/" method="post">
-            FROM <input type="text" id="startNode" name="startNode" placeholder="wiki page 1" >
-            TO <input type="text" id="endNode" name="endNode" placeholder="wiki page 2" >
+            <input type="text" id="startNode" name="startNode" placeholder="wiki page 1" required>
+            - TO - <input type="text" id="endNode" name="endNode" placeholder="wiki page 2" required><br>
             <input id="search-button" type="submit" value="SEARCH">
             <!-- <button id="search-button">SEARCH</button> -->
         </form>
     </div>
-    <div id="foundText"></div>
-    <script src="/js/queue.js"></script>
-    <script src="/js/index.js"></script>
+    <div id="foundText">
+        <%= message %>
+    </div>
+    <script src="/js/loading.js"></script>
+    <!-- <script src="/js/queue.js"></script> -->
+    <!-- <script src="/js/index.js"></script> -->
 </body>
 </html>
