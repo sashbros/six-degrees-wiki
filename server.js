@@ -33,12 +33,19 @@ app.post('/', (req, res) => {
     console.log("inside post request")
     let startNodeText = req.body.startNode
     let endNodeText = req.body.endNode
+    startNodeText = startNodeText.trim()
+    endNodeText = endNodeText.trim()
     console.log(startNodeText, endNodeText)
-    searchButtonClick(startNodeText, endNodeText).then(response => {
-        console.log("inside post response")
-        message = response
+    if (startNodeText === endNodeText) {
+        message = "Really!!???!!"
         res.render("index.ejs", {message: message});
-    })
+    } else {
+        searchButtonClick(startNodeText, endNodeText).then(response => {
+            console.log("inside post response")
+            message = response
+            res.render("index.ejs", {message: message});
+        })
+    }
 })
 
 app.listen(3000, () => 

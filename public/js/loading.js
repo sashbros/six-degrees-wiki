@@ -1,3 +1,15 @@
 document.getElementById("search-button").onclick = () => {
-    document.getElementById("foundText").innerText = "Loading";
+    let start = document.getElementById("startNode").value
+    let end = document.getElementById("endNode").value
+    start = start.trim()
+    end = end.trim()
+    console.log(start, end)
+    // null // same 
+    if (start === "" || end === "") {
+        document.getElementById("foundText").innerText = "";
+    } else if (start === end) {
+        document.getElementById("foundText").innerText = "Really!!???!!";
+    } else {
+        document.getElementById("foundText").innerHTML = "<div></div>";
+    }
 }

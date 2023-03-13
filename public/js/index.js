@@ -278,7 +278,7 @@ let searchByBfs = async (start_node_title, end_node_title) => {
                     console.log(title + " FOUND!!!!!!!!!!")
                     tempPath.push(title)
                     end_node_found = true
-                    message = title + " FOUND. Here is the path -> " + tempPath
+                    message = "Path from " + start_node_title + " to " + title + " FOUND with " + tempPath.length + " degrees. It is " + convertArrayToString(tempPath)
                     console.log(message)
                     // document.getElementById("foundText").innerText = title + " FOUND. Here is the path -> " + tempPath
                     return false
@@ -318,7 +318,7 @@ let searchByBfs = async (start_node_title, end_node_title) => {
         }
         // nums--;
     }
-    if (nums==0) message = end_node_title + " NOT FOUND with the current resources. Please attempt the search once more, as it will increase the likelihood of success. I need to scale the processing power to handle increased workload."
+    if (nums==0) message = "Path from " + start_node_title + " to " + end_node_title + " NOT FOUND with the current resources. Please attempt the search once more, as it will increase the likelihood of success. I need to scale the processing power to handle increased workload."
     return message;
 }
 
@@ -327,6 +327,16 @@ let setGraphData = graph => {
     fs.writeFile("./data/graph.json", graphData, err => {
         console.log("file write complete")
     })
+}
+
+let convertArrayToString = path => {
+    let pathString = "" + path[0]
+    for (let i = 1; i < path.length; i++) {
+        const stop = path[i];
+        pathString += " -> " + stop
+    }
+    pathString += ""
+    return pathString
 }
 
 module.exports = searchButtonClick;
