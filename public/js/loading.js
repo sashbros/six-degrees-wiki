@@ -13,12 +13,21 @@ document.getElementById("search-button").onclick = () => {
     }
 }
 
-document.getElementsByClassName('about')[0].onclick = () => {
-    showAbout()
-}
+// document.getElementsByClassName('about')[0].onclick = () => {
+//     showAbout()
+// }
 
 let showAbout = () => {
     let node = document.getElementsByClassName('about-open')[0]
     let visibility = node.style.visibility;
     node.style.visibility = visibility == "visible" ? 'hidden' : "visible"
+}
+
+document.onclick = event => {
+    if (event.target.className === "about") {
+        showAbout();
+    } else if (event.target.className != "about-open") {
+        let node = document.getElementsByClassName('about-open')[0]
+        node.style.visibility = "hidden"
+    }
 }
