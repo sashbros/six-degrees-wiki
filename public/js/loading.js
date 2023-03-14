@@ -12,3 +12,13 @@ document.getElementById("search-button").onclick = () => {
         document.getElementById("foundText").innerHTML = "<div></div>";
     }
 }
+
+document.getElementsByClassName('about')[0].onclick = () => {
+    showAbout()
+}
+
+let showAbout = () => {
+    let node = document.getElementsByClassName('about-open')[0]
+    let visibility = node.style.visibility;
+    node.style.visibility = visibility == "visible" ? 'hidden' : "visible"
+}

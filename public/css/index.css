@@ -7,9 +7,15 @@ body {
 }
 
 h1 {
-    font-family: 'Genos', sans-serif;
+    font-family: 'Dancing Script', sans-serif;
+    /* color: rgb(0, 0, 255); */
     text-align: center;
     font-size: 60px;
+    background-image: linear-gradient(45deg, rgb(0, 0, 255), rgb(255, 0, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; 
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent; 
 }
 
 .search-paths {
@@ -88,6 +94,50 @@ h1 {
     }
 }
 
+.header {
+    font-size: 20px;
+    font-family: 'Sono', sans-serif;
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: 15px;
+    color: rgb(66, 66, 66);
+    text-align: center;
+}
+
+.header .about:hover {
+    cursor: pointer;
+}
+
+.about {
+    padding: 5px;
+    border-radius: 1em 0 1em 0;
+    background-image: linear-gradient(
+        -100deg,
+        rgba(255, 255, 0, 0.2),
+        rgba(255, 255, 0, 0.7) 95%,
+        rgba(255, 255, 0, 0.1)
+    );
+}
+
+.about-open {
+    font-size: 18px;
+    position: fixed;
+    text-align: justify;
+    color: rgb(66, 66, 66);;
+    right: 0;
+    top: 0;
+    margin-top: 50px;
+    margin-right: 50px;
+    width: 30vw;
+    padding: 15px;
+    background-color: blanchedalmond;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    visibility: hidden;
+}
+
 .footer {
     position: fixed;
     left: 0;
@@ -109,6 +159,14 @@ h1 {
 }
 
 @media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 40px;
+    }
+    
+    .search-paths {
+        font-size: 13px;
+    }
+
     .form-container {
       flex-direction: column;
     }
@@ -132,5 +190,20 @@ h1 {
         color:#fff;
         box-shadow: 0 0 15px 2px rgba(0,0,0,0.3);
         border-radius: 7px;
+    }
+
+    #foundText {
+        font-size: 13px;
+    }
+
+    .header {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .about-open {
+        font-size: 13px;
+        margin-top: 40px;
+        margin-right: 40px;
     }
   }
