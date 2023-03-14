@@ -12,6 +12,7 @@ h1 {
     text-align: center;
     font-size: 60px;
     background-image: linear-gradient(45deg, rgb(0, 0, 255), rgb(255, 0, 0));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent; 
     -moz-background-clip: text;
