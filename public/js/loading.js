@@ -3,7 +3,6 @@ document.getElementById("search-button").onclick = () => {
     let end = document.getElementById("endNode").value
     start = start.trim()
     end = end.trim()
-    console.log(start, end)
     // null // same 
     if (start === "" || end === "") {
         document.getElementById("foundText").innerText = "";

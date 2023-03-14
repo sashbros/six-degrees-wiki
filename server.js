@@ -1,6 +1,6 @@
 const express = require("express")
 let fs = require("fs")
-const searchButtonClick = require("./public/js/index")
+const searchButtonClick = require("./javascript/index")
 const bodyParser = require('body-parser')
 
 const app = express();

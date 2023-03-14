@@ -292,7 +292,7 @@ let searchByBfs = async (start_node_title, end_node_title) => {
         } else {
             running++;
             // console.log("worker " + running)
-            const worker = new Worker("/js/worker.js")
+            const worker = new Worker("./worker.js")
             worker.postMessage(newTitle)
             worker.onmessage = newTitleConnections => {
                 running--;

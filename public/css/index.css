@@ -2,6 +2,8 @@ body {
     background-color: rgb(109, 241, 202);
     font-family: 'Roboto', sans-serif;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
@@ -13,6 +15,13 @@ h1 {
 .search-paths {
     font-size: 25px;
     text-align: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-paths input[type=text] {
@@ -98,3 +107,30 @@ h1 {
     color: rgba(245, 245, 245, 0.705);
     text-decoration: none;
 }
+
+@media only screen and (max-width: 600px) {
+    .form-container {
+      flex-direction: column;
+    }
+
+    .search-paths input[type=text] {
+        font-size: 13px;
+        text-align: center;
+        margin: 5px;
+        padding: 15px;
+        border: none;
+        box-shadow: 0 0 15px 2px rgba(0,0,0,0.2);
+    }
+    
+    .search-paths input[type=submit] {
+        width: 25%;
+        font-size: 13px;
+        padding: 15px;
+        margin-top: 30px;
+        border: none;
+        background-color:#007e11;
+        color:#fff;
+        box-shadow: 0 0 15px 2px rgba(0,0,0,0.3);
+        border-radius: 7px;
+    }
+  }

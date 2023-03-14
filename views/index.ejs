@@ -15,8 +15,12 @@
     <div class="search-paths">
         <h2>Find the shortest path from</h2> 
         <form action="/" method="post">
-            <input type="text" id="startNode" name="startNode" placeholder="wiki page 1" required>
-            - TO - <input type="text" id="endNode" name="endNode" placeholder="wiki page 2" required><br>
+            <div class="form-container">
+                <input type="text" id="startNode" name="startNode" placeholder="wiki page 1" required>
+                <span> - TO - </span>
+                <input type="text" id="endNode" name="endNode" placeholder="wiki page 2" required>
+            </div>
+            <br>
             <input id="search-button" type="submit" value="SEARCH">
             <!-- <button id="search-button">SEARCH</button> -->
         </form>
